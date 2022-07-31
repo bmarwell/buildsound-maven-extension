@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>io.github.bmarwell.maven.buildsound</groupId>
+  <artifactId>buildsound-maven-extension-root</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>Buildsound Maven Extension (Root)</name>
+  <description>Acoustically enhances your maven build!</description>
+
+  <scm>
+    <url>https://github.com/bmarwell/buildsound-maven-extension</url>
+    <connection>scm:git:git@github.com:bmarwell/buildsound-maven-extension.git</connection>
+    <developerConnection>scm:git:git@github.com:bmarwell/buildsound-maven-extension.git</developerConnection>
+    <tag>HEAD</tag>
+  </scm>
+
+  <modules>
+    <module>buildsound-maven-extension</module>
+  </modules>
+
+  <properties>
+    <java.version>8</java.version>
+    <jdk.version>17</jdk.version>
+    <maven.compiler.release>${java.version}</maven.compiler.release>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.build.outputTimestamp>10</project.build.outputTimestamp>
+    <argLine>-Duser.country=US -Duser.language=en</argLine>
+
+    <maven.version>3.3.1</maven.version>
+
+    <!--suppress UnresolvedMavenProperty -->
+    <reactor.root.dir>${maven.multiModuleProjectDirectory}</reactor.root.dir>
+
+    <!-- plugin versions -->
+    <plugin.maven-compiler-plugin.version>3.10.1</plugin.maven-compiler-plugin.version>
+    <plugin.maven-surefire-plugin.version>3.0.0-M7</plugin.maven-surefire-plugin.version>
+    <plugin.maven-failsafe-plugin.version>3.0.0-M7</plugin.maven-failsafe-plugin.version>
+
+    <!-- 3rd party plugins -->
+    <plugin.spotless.version>2.24.0</plugin.spotless.version>
+
+
+    <!-- plugin settings -->
+    <plugin.spotless.eclipse.file>${reactor.root.dir}/eclipse-formatter.xml</plugin.spotless.eclipse.file>
+
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.apache.maven</groupId>
+        <artifactId>maven-core</artifactId>
+        <version>${maven.version}</version>
+        <scope>provided</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>org.codehaus.plexus</groupId>
+        <artifactId>plexus-component-annotations</artifactId>
+        <version>1.7.1</version>
+        <scope>provided</scope>
+      </dependency>
+
+      <!-- test dependencies -->
+      <dependency>
+        <groupId>org.junit</groupId>
+        <artifactId>junit-bom</artifactId>
+        <version>5.8.2</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.assertj</groupId>
+        <artifactId>assertj-core</artifactId>
+        <version>${dependency.assertj.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-core</artifactId>
+        <version>${dependency.mockito.version}</version>
+        <scope>test</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <!-- maven plugins -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>${plugin.maven-compiler-plugin.version}</version>
+          <configuration>
+            <showDeprecation>true</showDeprecation>
+            <showWarnings>true</showWarnings>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>${plugin.maven-surefire-plugin.version}</version>
+          <configuration>
+            <systemProperties>
+              <property>
+                <name>java.util.logging.manager</name>
+                <value>io.yupiik.logging.jul.YupiikLogManager</value>
+              </property>
+              <property>
+                <name>java.util.logging.config.file</name>
+                <value>src/test/resources/logging.properties</value>
+              </property>
+            </systemProperties>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-failsafe-plugin</artifactId>
+          <version>${plugin.maven-failsafe-plugin.version}</version>
+          <configuration>
+            <systemProperties>
+              <property>
+                <name>java.util.logging.manager</name>
+                <value>io.yupiik.logging.jul.YupiikLogManager</value>
+              </property>
+              <property>
+                <name>java.util.logging.config.file</name>
+                <value>src/test/resources/logging.properties</value>
+              </property>
+            </systemProperties>
+          </configuration>
+          <executions>
+            <execution>
+              <id>integration-test</id>
+              <goals>
+                <goal>integration-test</goal>
+              </goals>
+            </execution>
+            <execution>
+              <id>verify</id>
+              <goals>
+                <goal>verify</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-source-plugin</artifactId>
+          <version>3.2.1</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>3.4.0</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>3.2.2</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-war-plugin</artifactId>
+          <version>3.3.2</version>
+          <configuration>
+            <failOnMissingWebXml>false</failOnMissingWebXml>
+            <attachClasses>true</attachClasses>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-enforcer-plugin</artifactId>
+          <version>3.1.0</version>
+        </plugin>
+
+        <!-- third party plugins -->
+        <plugin>
+          <groupId>org.codehaus.plexus</groupId>
+          <artifactId>plexus-component-metadata</artifactId>
+          <version>1.7.1</version>
+        </plugin>
+
+        <plugin>
+          <groupId>com.diffplug.spotless</groupId>
+          <artifactId>spotless-maven-plugin</artifactId>
+          <version>${plugin.spotless.version}</version>
+          <configuration>
+            <formats>
+              <format>
+                <includes>
+                  <include>*.adoc</include>
+                  <include>*.md</include>
+                  <include>*.xml</include>
+                  <include>.gitignore</include>
+                </includes>
+                <!-- define the steps to apply to those files -->
+                <trimTrailingWhitespace/>
+                <endWithNewline/>
+                <indent>
+                  <tabs>false</tabs>
+                  <spaces>true</spaces>
+                  <spacesPerTab>2</spacesPerTab>
+                </indent>
+              </format>
+            </formats>
+
+            <java>
+              <importOrder/>
+              <removeUnusedImports/>
+
+              <eclipse>
+                <version>4.21.0</version>
+                <file>${plugin.spotless.eclipse.file}</file>
+              </eclipse>
+            </java>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <groupId>org.jacoco</groupId>
+          <artifactId>jacoco-maven-plugin</artifactId>
+          <version>0.8.8</version>
+          <executions>
+            <execution>
+              <id>prepare-agent</id>
+              <phase>initialize</phase>
+              <goals>
+                <goal>prepare-agent</goal>
+              </goals>
+            </execution>
+            <execution>
+              <id>prepare-it-agent</id>
+              <phase>pre-integration-test</phase>
+              <goals>
+                <goal>prepare-agent-integration</goal>
+              </goals>
+            </execution>
+            <execution>
+              <id>jacoco-report</id>
+              <phase>verify</phase>
+              <goals>
+                <goal>report</goal>
+                <goal>report-integration</goal>
+                <goal>report-aggregate</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+
+    <!-- forced plugin invocation -->
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>enforce-java</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <requireJavaVersion>
+                  <version>${jdk.version}</version>
+                </requireJavaVersion>
+              </rules>
+            </configuration>
+          </execution>
+          <execution>
+            <id>enforce-maven</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <requireMavenVersion>
+                  <version>${maven.version}</version>
+                </requireMavenVersion>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <groupId>com.diffplug.spotless</groupId>
+        <artifactId>spotless-maven-plugin</artifactId>
+        <inherited>true</inherited>
+        <executions>
+          <execution>
+            <goals>
+              <goal>check</goal>
+            </goals>
+            <phase>validate</phase>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <inherited>true</inherited>
+      </plugin>
+    </plugins>
+  </build>
+
+
+  <reporting>
+  </reporting>
+
+  <profiles>
+    <profile>
+      <id>docs</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>attach-api-docs</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+            <inherited>true</inherited>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>attach-sources</id>
+                <goals>
+                  <goal>jar-no-fork</goal>
+                </goals>
+              </execution>
+            </executions>
+            <inherited>true</inherited>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+</project>
