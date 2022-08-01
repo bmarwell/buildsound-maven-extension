@@ -1,6 +1,6 @@
 package io.github.bmarwell.maven.buildsound;
 
-import io.github.bmarwell.maven.buildsound.player.HighCPlayer;
+import io.github.bmarwell.maven.buildsound.player.AscendingSoundPlayer;
 import org.apache.maven.AbstractMavenLifecycleParticipant;
 import org.apache.maven.MavenExecutionException;
 import org.apache.maven.execution.ExecutionListener;
@@ -18,6 +18,9 @@ public class BuildsoundExtension extends AbstractMavenLifecycleParticipant {
       return;
     }
 
+    final int numProjects = session.getAllProjects().size();
+
+
     registerExecutionListener(session);
   }
 
@@ -29,7 +32,9 @@ public class BuildsoundExtension extends AbstractMavenLifecycleParticipant {
   private void registerExecutionListener(MavenSession session) {
     MavenExecutionRequest request = session.getRequest();
     final ExecutionListener originalExecListener = request.getExecutionListener();
-    final ExecutionListener buildsoundExecListener = new BuildsoundExecutionListener(new HighCPlayer());
+    // final ExecutionListener buildsoundExecListener = new BuildsoundExecutionListener(new
+    // HighCPlayer());
+    final ExecutionListener buildsoundExecListener = new BuildsoundExecutionListener(new AscendingSoundPlayer(session));
 
     final DecoratedExecutionListener decoratedExecutionListener =
         new DecoratedExecutionListener(buildsoundExecListener, originalExecListener);
