@@ -1,0 +1,45 @@
+name: Maven CI
+
+on:
+  workflow_dispatch: { }
+  push: { }
+  pull_request: { }
+
+# Minimum permissions required by skip-duplicate-actions
+permissions:
+  actions: write
+  contents: read
+
+jobs:
+  build:
+    runs-on: [ ubuntu-latest ]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: semeru
+
+      - name: Move extensions.xml away for first build
+        shell: bash
+        run: mv .mvn/extensions.xml .mvn/extensions.xml.backup
+
+      - name: Build and install application with Maven
+        shell: bash
+        run: |
+          mvn \
+            --show-version \
+            --errors \
+            --batch-mode \
+            --no-transfer-progress \
+            spotless:check \
+            install \
+            -Pdocs \
+            -DtrimStackTrace=false
+
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
