@@ -1,6 +1,6 @@
 package io.github.bmarwell.maven.buildsound;
 
-import io.github.bmarwell.maven.buildsound.player.AscendingSoundPlayer;
+import io.github.bmarwell.maven.buildsound.player.SineWaveSoundPlayer;
 import org.apache.maven.AbstractMavenLifecycleParticipant;
 import org.apache.maven.MavenExecutionException;
 import org.apache.maven.execution.ExecutionListener;
@@ -34,7 +34,7 @@ public class BuildsoundExtension extends AbstractMavenLifecycleParticipant {
     final ExecutionListener originalExecListener = request.getExecutionListener();
     // final ExecutionListener buildsoundExecListener = new BuildsoundExecutionListener(new
     // HighCPlayer());
-    final ExecutionListener buildsoundExecListener = new BuildsoundExecutionListener(new AscendingSoundPlayer(session));
+    final ExecutionListener buildsoundExecListener = new BuildsoundExecutionListener(new SineWaveSoundPlayer(session));
 
     final DecoratedExecutionListener decoratedExecutionListener =
         new DecoratedExecutionListener(buildsoundExecListener, originalExecListener);

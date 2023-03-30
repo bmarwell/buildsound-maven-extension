@@ -17,24 +17,40 @@ public class BuildsoundExecutionListener extends AbstractExecutionListener {
   @Override
   public void projectStarted(ExecutionEvent event) {
     super.projectStarted(event);
-    player.play(event);
+    try {
+      player.play(event);
+    } catch (Exception javaLangException) {
+      // ignore
+    }
   }
 
   @Override
   public void projectSucceeded(ExecutionEvent event) {
     super.projectSucceeded(event);
-    player.play(event);
+    try {
+      player.play(event);
+    } catch (Exception javaLangException) {
+      // ignore
+    }
   }
 
   @Override
   public void mojoStarted(ExecutionEvent event) {
     super.mojoStarted(event);
-    player.play(event);
+    try {
+      player.play(event);
+    } catch (Exception javaLangException) {
+      // ignore
+    }
   }
 
   @Override
   public void mojoSucceeded(ExecutionEvent event) {
     super.mojoSucceeded(event);
-    player.play(event);
+    try {
+      player.play(event);
+    } catch (Exception javaLangException) {
+      // ignore
+    }
   }
 }

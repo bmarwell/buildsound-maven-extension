@@ -4,5 +4,5 @@ import org.apache.maven.execution.ExecutionEvent;
 
 public interface BuildSoundPlayer {
 
-  void play(ExecutionEvent event);
+  void play(ExecutionEvent event) throws Exception;
 }
