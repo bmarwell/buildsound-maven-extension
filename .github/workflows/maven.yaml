@@ -30,7 +30,7 @@ jobs:
       - name: Build and install application with Maven
         shell: bash
         run: |
-          mvn \
+          ./mvnw \
             --show-version \
             --errors \
             --batch-mode \
