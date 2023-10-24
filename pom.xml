@@ -28,7 +28,7 @@
     <project.build.outputTimestamp>10</project.build.outputTimestamp>
     <argLine>-Duser.country=US -Duser.language=en</argLine>
 
-    <maven.version>3.9.3</maven.version>
+    <maven.version>3.9.5</maven.version>
 
     <!--suppress UnresolvedMavenProperty -->
     <reactor.root.dir>${maven.multiModuleProjectDirectory}</reactor.root.dir>
