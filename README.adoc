@@ -1,0 +1,38 @@
+= Build-Sound Maven Extension
+
+Listen to your build progress!
+
+== What this extension does
+
+This extension calculates, based on the number of modules and steps in your build, a sound to play.
+For each completed step, a higher pitched sound will be played until the build is finished.
+
+== Installation and Usage
+
+=== Compilation
+
+There are no releases yet, so…
+
+[source,bash]
+----
+./mvnw verify
+----
+
+=== Usage in Maven projects
+
+Create and/or edit your `${project.basedir}/.mvn/extensions.xml` to contain:
+
+.`${project.basedir}/.mvn/extensions.xml`
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<extensions>
+  <extension>
+    <groupId>io.github.bmarwell.maven.buildsound</groupId>
+    <artifactId>buildsound-maven-extension</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+  </extension>
+</extensions>
+----
+
+Then start your build as normal.
