@@ -34,12 +34,12 @@
     <reactor.root.dir>${maven.multiModuleProjectDirectory}</reactor.root.dir>
 
     <!-- plugin versions -->
-    <plugin.maven-compiler-plugin.version>3.13.0</plugin.maven-compiler-plugin.version>
+    <plugin.maven-compiler-plugin.version>3.14.0</plugin.maven-compiler-plugin.version>
     <plugin.maven-surefire-plugin.version>3.5.3</plugin.maven-surefire-plugin.version>
-    <plugin.maven-failsafe-plugin.version>3.3.1</plugin.maven-failsafe-plugin.version>
+    <plugin.maven-failsafe-plugin.version>3.5.3</plugin.maven-failsafe-plugin.version>
 
     <!-- 3rd party plugins -->
-    <plugin.spotless.version>2.43.0</plugin.spotless.version>
+    <plugin.spotless.version>2.44.4</plugin.spotless.version>
 
 
     <!-- plugin settings -->
@@ -67,7 +67,7 @@
       <dependency>
         <groupId>org.junit</groupId>
         <artifactId>junit-bom</artifactId>
-        <version>5.10.3</version>
+        <version>5.12.2</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -159,7 +159,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-javadoc-plugin</artifactId>
-          <version>3.8.0</version>
+          <version>3.11.2</version>
         </plugin>
 
         <plugin>
@@ -230,7 +230,7 @@
         <plugin>
           <groupId>org.jacoco</groupId>
           <artifactId>jacoco-maven-plugin</artifactId>
-          <version>0.8.12</version>
+          <version>0.8.13</version>
           <executions>
             <execution>
               <id>prepare-agent</id>
