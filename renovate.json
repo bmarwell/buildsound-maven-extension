@@ -1,13 +1,15 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base"
+    "config:recommended"
   ],
-   "packageRules": [
+  "packageRules": [
     {
-      "matchPackagePatterns": ["^org\\.apache\\.maven\\.plugins:.*"],
       "automerge": true,
-      "automergeType": "pr"
+      "automergeType": "pr",
+      "matchPackageNames": [
+        "/^org\\.apache\\.maven\\.plugins:.*/"
+      ]
     }
   ]
 }
