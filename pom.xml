@@ -39,7 +39,7 @@
     <plugin.maven-failsafe-plugin.version>3.5.3</plugin.maven-failsafe-plugin.version>
 
     <!-- 3rd party plugins -->
-    <plugin.spotless.version>2.44.4</plugin.spotless.version>
+    <plugin.spotless.version>2.46.1</plugin.spotless.version>
 
 
     <!-- plugin settings -->
